@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<style>
+.body {
+	font-family: 'Lato', sans-serif;
+}
+
+.banner {
+	height: 350px;
+	width: 250px;
+	background-color: green;
+	color: white;
+	text-align: center;
+	border-radius: 10px;
+	line-height: 50px;
+	margin: auto;
+}
+
+#getQuote {
+	color: green;
+	text-align: center;
+}
+</style>
+<html lang="en">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">		</script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="banner"> 
+			Random Quote Generator
+			<div class="quote">
+			</div>
+			<button id="getQuote">Get Quote</button>
+
+		</div>
+	</body>
+
+	<script>
+$(document).ready(function() {
+	$("#getQuote").on("click", function(){
+		// Only change code below this line.
+		var str = $( "quote" ).text();
+		console.log(str);
+		console.log("hello");
+		var quotes = ["Be patient and understanding. Life is too short to be vengeful or malicious -Phillips Brooks", "Faith is taking the first step even when you don't see the whole staircase -MLK", "You can't blame gravity for falling in love. -Albert Einstein"];
+		var current = quotes[Math.floor(Math.random() * quotes.length)]
+			$(".quote").html(current);
+		// Only change code above this line.
+	});
+});
+	</script>
+</html>
