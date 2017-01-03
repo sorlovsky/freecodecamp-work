@@ -2,18 +2,124 @@
   src="https://code.jquery.com/jquery-3.1.1.js"
   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
   crossorigin="anonymous"></script>
-  
 <script>
-  // Only change code below this line.
+	function KtoF(degrees) {
+	    return degrees * 9/5 - 459.67
+	}
+
+	function CtoF(degrees) {
+	    return degrees * 9/5 + 32
+	}
+
+	function FtoC(degrees) {
+	    return (degrees - 32) * 5/9
+	}
+
+  
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      $("#data").html("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
+      // $("#data").html("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
+      $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&APPID=51ee6e52bf739aa24fc1ad42a29c39b4", function(json) {
+      	// console.log(json);
+      	// console.log(json["weather"][0]["description"]);
+       //  $("#json").html(JSON.stringify(json));
+       var temp = Math.ceil(KtoF(json["main"]["temp"]) / 10) * 10
+        $("#temp").html(temp + "F");
+        $("#weather").html(json["weather"][0]["description"])
+        $("#location").html(json["name"]);
+
+        $("#convert").on("click", function(){
+        	if ($("#convert").html() == "Change to F"){
+        		$("#convert").html("Change to C");
+        		temp = CtoF(temp);
+        		$("#temp").html(temp + "F");
+        	} 
+        	else {
+        		$("#convert").html("Change to F")
+        		temp = FtoC(temp);
+        		$("#temp").html(temp + "C");
+        	}
+        	
+    	});
+
+        console.log(json["weather"][0]["description"]);
+        if (json["weather"][0]["description"] == "clear sky"){
+        	var url = 'http://openweathermap.org/img/w/01d.png'
+        	var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+			img.attr('src', url);
+			img.appendTo('#weather');
+        	
+        } else if (json["weather"][0]["description"] == "few clouds"){
+        	var url = 'http://openweathermap.org/img/w/02d.png'
+        	var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+			img.attr('src', url);
+			img.appendTo('#weather');
+
+        } else if (json["weather"][0]["description"] == "scattered clouds"){
+        	var url = 'http://openweathermap.org/img/w/03d.png'
+        	var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+			img.attr('src', url);
+			img.appendTo('#weather');
+
+        } else if (json["weather"][0]["description"] == "broken clouds"){
+        	var url = 'http://openweathermap.org/img/w/04d.png'
+        	var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+			img.attr('src', url);
+			img.appendTo('#weather');
+
+        } else if (json["weather"][0]["description"] == "rain" || json["weather"][0]["description"] == "light rain"){
+        	var url = 'http://openweathermap.org/img/w/09n.png'
+        	var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+			img.attr('src', url);
+			img.appendTo('#weather');
+        } 
+
+        else if (json["weather"][0]["description"] == "overcast clouds"){
+        	var url = 'http://openweathermap.org/img/w/04d.png'
+        	var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+			img.attr('src', url);
+			img.appendTo('#weather');
+        }
+
+      });
     });
-  }
   
+  }
   // Only change code above this line.
 </script>
-<div id = "data">
-  <h4>You are here:</h4>
-  
-</div>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style type="text/css">
+	.well {
+		margin-top: 100px;
+	}
+
+	body {
+		background-color: green;
+	}
+</style>
+
+<body>
+	<div class="container well">
+		<h1>Weather App</h1>
+		<table class="table">
+		    <thead>
+		      <tr>
+		        <th>Location</th>
+		        <th>Temperature <button class="btn btn-primary" id="convert">Change to C</button></th>
+		        <th>Weather</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td id="location"></td>
+		        <td id="temp"></td>
+		        <td id="weather"></td>
+
+		      </tr>
+		    </tbody>
+		  </table>
+	</div>
+</body>
