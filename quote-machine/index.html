@@ -58,8 +58,9 @@ Tweet</a>
 
 		$("#getQuote").on("click", function(){
 			var quotes = [{"quote": "\"Be patient and understanding. Life is too short to be vengeful or malicious\"", "author": "-Phillips Brooks"}, {"quote":"\"Faith is taking the first step even when you don't see the whole staircase\"", "author": "-Martin Luther King"}, {"quote":"\"You can't blame gravity for falling in love.\"", "author":"-Albert Einstein"}];
-			var quote = quotes[Math.floor(Math.random() * quotes.length)]["quote"]
-			var author = quotes[Math.floor(Math.random() * quotes.length)]["author"]
+			var obj = quotes[Math.floor(Math.random() * quotes.length)]
+			var quote = obj["quote"]
+			var author = obj["author"]
 			$("#quote").html(quote);
 			$("#author").html(author)
 			$('#tweet').attr('href', 'https://twitter.com/intent/tweet?text='+quote+" "+author).attr('target', '_blank');
