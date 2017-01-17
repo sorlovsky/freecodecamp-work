@@ -1,4 +1,6 @@
 /*
+ Types of phone numbers handled
+
  555-555-5555
  (555)555-5555
  (555) 555-5555

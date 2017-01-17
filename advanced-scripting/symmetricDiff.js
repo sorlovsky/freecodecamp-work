@@ -1,7 +1,7 @@
 function sym() {
   var args = arguments;
   console.log(args);
-  for ()
+  //for ()
   return args;
 }
 
