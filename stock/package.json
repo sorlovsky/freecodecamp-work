@@ -1,0 +1,16 @@
+{
+  "name": "stock",
+  "version": "1.0.0",
+  "description": "stock app",
+  "main": "app.js",
+  "dependencies": {
+    "pug": "^2.0.0-beta11",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
