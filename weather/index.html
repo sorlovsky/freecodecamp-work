@@ -3,6 +3,7 @@
   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
   crossorigin="anonymous"></script>
 <script>
+
 	function KtoF(degrees) {
 	    return degrees * 9/5 - 459.67
 	}
@@ -18,11 +19,7 @@
   
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      // $("#data").html("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
       $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&APPID=51ee6e52bf739aa24fc1ad42a29c39b4", function(json) {
-      	// console.log(json);
-      	// console.log(json["weather"][0]["description"]);
-       //  $("#json").html(JSON.stringify(json));
        var temp = Math.ceil(KtoF(json["main"]["temp"]) / 10) * 10
         $("#temp").html(temp + "F");
         $("#weather").html(json["weather"][0]["description"])
@@ -32,12 +29,12 @@
         	if ($("#convert").html() == "Change to F"){
         		$("#convert").html("Change to C");
         		temp = CtoF(temp);
-        		$("#temp").html(temp + "F");
+        		$("#temp").html(Math.round(temp) + "F");
         	} 
         	else {
         		$("#convert").html("Change to F")
         		temp = FtoC(temp);
-        		$("#temp").html(temp + "C");
+        		$("#temp").html(Math.round(temp) + "C");
         	}
         	
     	});
@@ -85,10 +82,8 @@
     });
   
   }
-  // Only change code above this line.
 </script>
 
-<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <style type="text/css">
