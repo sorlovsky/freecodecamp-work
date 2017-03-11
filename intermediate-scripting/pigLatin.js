@@ -3,7 +3,7 @@ function translatePigLatin(str) {
 	var cons = true;
 	var counter = 0;
 	var vowels = ["a", "e", "i", "o", "u"];
-	
+
 	while (cons){
 		if (vowels.indexOf(str[counter]) == -1){
 			consGroup += str[counter];
@@ -12,7 +12,7 @@ function translatePigLatin(str) {
 			cons = false;
 		}
 	}
-	
+
 	if (consGroup.length !== 0){
 		str = str.slice(consGroup.length, str.length);
 		str += consGroup;
@@ -20,7 +20,7 @@ function translatePigLatin(str) {
 	} else {
 		str += "way";
 	}
-	
+
 	return str;
 }
 
