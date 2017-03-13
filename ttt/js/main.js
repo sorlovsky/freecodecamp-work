@@ -1,10 +1,12 @@
-var done = false
+var done = false;
 var turn = "x";
 var board = [
 	["", "", ""],
 	["", "", ""],
 	["", "", ""]
 ];
+
+var possibleMoves = ['00', '01', '02', '10', '11', '12', '20', '21', '22']
 
 function hasWon(b, p){
 	console.log(b[0][0]);
@@ -71,7 +73,6 @@ function printBoard(b) {
 		}
 		$("p").append("<br>");
 	}
-	console.log("hello");
 }
 
 printBoard(board);
@@ -80,30 +81,66 @@ function move(p, x, y) {
 	board[x][y] = p;
 }
 
+function resetBoard() {
+	console.log("hello");
+	board = [
+		["", "", ""],
+		["", "", ""],
+		["", "", ""]
+	];
+	possibleMoves = ['00', '01', '02', '10', '11', '12', '20', '21', '22']
+
+	for (var i = 0; i < possibleMoves.length; i++) {
+		$('#'+possibleMoves[i]).html("");
+	}
+	done = false;
+}
+
 $("div").click(function() {
-    // alert(this.id); // or alert($(this).attr('id'));
 	if (done == false) {
 		var current = $("#" + this.id).text();
+
 
 		if (turn == "x"){
 			$("#" + this.id).html("x")
 			board[this.id[0]][this.id[1]] = 'x'
+			for (var i = 0; i < possibleMoves.length; i++) {
+				console.log(possibleMoves);
+				if (possibleMoves[i] == this.id){
+					possibleMoves.splice(i, 1);
+				}
+			}
 
-			turn = "y"
 		} else {
 			$("#" + this.id).html("y")
 			board[this.id[0]][this.id[1]] = 'y'
 			turn = "x"
 		}
+
 		if (hasWon(board, "x")){
 			$("h2").html("x has won");
 			done = true;
+			$("p").append("<br> <button type='button'>Click Me!</button>");
 		}
 
-		else if (hasWon(board, "y")){
+
+		var pmove = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];
+		move("y", pmove[0], pmove[1]);
+		$("#" + pmove).html("y")
+
+		for (var i = 0; i < possibleMoves.length; i++) {
+			if (possibleMoves[i] == pmove.toString()){
+				possibleMoves.splice(i, 1);
+			}
+		}
+
+		hasWon(board, 'y');
+
+		if (hasWon(board, "y")){
 			$("h2").html("y has won");
 			done = true;
+			$("p").append("<button type='button'>Click Me!</button>");
+
 		}
 	}
-
 });
