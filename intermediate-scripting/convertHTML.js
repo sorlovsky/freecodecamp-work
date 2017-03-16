@@ -1,36 +1,27 @@
-function myReplace(str, before, after) {
-	str = str.split(" ")
-	for (var i=0; i<str.length; i++){
-		if (str[i] == before){
-			if (str[i][0] == str[i][0].toUpperCase()){
-				console.log(after[0].toUpperCase() + after.substring(1, after.length))
-				str[i] = after[0].toUpperCase() + after.substring(1, after.length);
-			}
-			else {
-				str[i] = after;
-			}
-		}
-	}
-	return str.join(" ");
-}
-
 function convertHTML(str){
-	var words = str.split(" ");
+	var words = str.split("");
+	var newStr = "";
+	//console.log(words);
 	for (var i in words) {
+		//console.log(words[i])
 		if (words[i] == "&"){
-			str = myReplace(str, words[i], "&amp;"); 
+			newStr += "&amp;"; 
 		} else if (words[i] == "<") {
-			str = myReplace(str, words[i], "&lt;");
+			newStr += "&lt;";
 		} else if (words[i] == ">") {
-			str = myReplace(str, words[i], "&gt;");
+			newStr += "&gt;";
 		} else if (words[i] == '"') {
-			str = myReplace(str, words[i], "&quot;");
+			newStr += "&quot;";
 		} else if (words[i] == "'") {
-			str = myReplace(str, words[i], "&apos;");
+			newStr += "&apos;";
+		} else {
+			newStr += words[i]
+			console.log(words[i])
 		}
 	}
-	return str;
+	console.log(newStr);
+	return newStr;
 }
 
-console.log(convertHTML("<>"));
+console.log(convertHTML("Hamburgers < Pizza < Tacos"))
 
